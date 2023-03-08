@@ -18,7 +18,7 @@ git push origin master
 # Setup an EMR cluster
 # ---------------------------------------------
 # Go to AWS console, navigate to lambda service and create a lambda (create_emr_cluster.py) using Python 3.7
-# Execute the lambda to create an single-node EMR cluster
+# Execute the lambda to create a single-node EMR cluster
 
 # Open an SSH session with the EMR cluster from your local system,
 ssh -i spark.pem hadoop@<cluster_dns_name>
@@ -27,9 +27,15 @@ sudo yum update -y
 sudo yum install git-core -y
 pip install pyyaml==5.3.1
 
-git clone <repo_url>
-cd <repo_dir>
+git clone git@github.com:sreecharanpola/dataframe-examples-py.git
+cd dataframe-examples
 export PYTHONPATH="$PWD"
+
+If getting issues in cloning the code repo follow this,
+1. Generate SSH key using ssh-keygen -t rsa -b 4096 -C "your email".
+2. Copy the output of cat ~/.ssh/id_rsa.pub to your clipboard
+3. Paste the above-copied output to the form at https://github.com/settings/ssh/new
+4. Then go ahead to retry the operation that generated the initial fatal error.
 
 # Copy 2 files (private key and .secrets) from local to EMR cluster's master node,
 scp -i test.pem xyz.pem hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/
